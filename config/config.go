@@ -22,10 +22,10 @@ type Config struct {
 
 func InitDB() {
 	config := Config{
-		DB_Username: "root",
+		DB_Username: "alta",
 		DB_Password: "112233Wnn",
 		DB_Port:     "3306",
-		DB_Host:     "localhost",
+		DB_Host:     "192.168.32.1",
 		DB_Name:     "login",
 	}
 

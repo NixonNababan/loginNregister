@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - 3307:3306
+    networks:
+      - api_server
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=login
+      # - DATABASE_HOST=db
+
+  api:
+    container_name: api
+    image: nixonnababan/mini-project:v1
+    restart: on-failure
+    ports:
+      - 80:8080
+    depends_on:
+      - db
+    # links:
+    #   - db
+    environment:
+      - DB_NAME=login
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_PORT=3306
+      - DB_HOST=db
+    networks:
+      - api_server
+
+networks:
+  api_server:
+    name: api_server
+
+# docker container create --name api -e DB_NAME=login -e DB_USER=root -e DB_PASSWORD=112233Wnn -e DB_PORT=3307 -e DB_HOST=labil -p 8080:8080 nixonnababan/nusa_meals1:1.0
+# docker container create --name db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=login -p 3307:3306 mysql:latest
